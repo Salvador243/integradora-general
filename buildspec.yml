@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - echo "🔧 Instalando dependencias..."
+      - npm install
+      - npm install -g @nestjs/cli
+  build:
+    commands:
+      - echo "🏗️ Compilando el proyecto NestJS..."
+      - npm run build
+  post_build:
+    commands:
+      - echo "📦 Preparando artefactos para Elastic Beanstalk..."
+      # Incluye los archivos necesarios para producción
+      - cp package*.json dist/
+artifacts:
+  files:
+    - '**/*'
+  base-directory: dist
+  discard-paths: no
